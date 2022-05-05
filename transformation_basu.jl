@@ -14,7 +14,8 @@ b = [2, 0, 1/6]
 # Net output
 y = [180, 0, 30]
 
-latexify(round.(A; digits = 3)) |> render
+#latexify(round.(A; digits = 3)) |> render
+
 # Check that dimensions are correct
 size(A)[1] == length(l) & length(b) & length(y)
 
@@ -44,4 +45,7 @@ r_avg = (1/(eigmax_m) - 1) # Nice, bro, nice
 #### Relative Prices
 # Calculate the prices of production such that 
 # the uniform rate of profit is 0.185 in all industries
-A_test = p*(I-(1/eigmax_m) * M)
+z = zeros(1,3)
+
+M_p = (I - (1/eigmax_m) * M)
+p = M_p\z' # They are linearly dependent! You can only solve for one price in terms of another!
