@@ -1,0 +1,71 @@
+---
+title: "Transformation Problem Demo"
+author: "Osman Keshawarz"
+date: "5/5/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Introduction
+
+This code replicates the demonstration of the transformation problem and standard/new interpretations in Basu 2022.
+
+```{r}
+# Given Quantities
+
+# Technology (input-output) matrix:
+
+A <- matrix(
+    c(186/450, 12/450, 9/459,
+      54/21, 6/21, 6/21,
+      30/60, 3/60, 15/60),
+      ncol = 3)
+
+
+# Labor input vector
+l <- c(18/450, 12/21, 30/60)
+
+# Real wage bundle
+b <- c(2, 0, 1/6)
+
+# Net output
+y <- c(180, 0, 30)
+
+# Check that col(A) = len(l) & len(b)
+dim(A)[1] == length(l) & length(b) & length(y)
+```
+```{r}
+#### Gross Output Vector ####
+
+#Create Identity Matrix
+n <- ncol(A)
+I <- diag(n)
+
+# solve() gives the inverse, and %*% is the operator
+# for matrix multiplication.
+
+Q <- solve(I-A) %*% y
+Q
+```
+```{r}
+# The Value System
+# Vector of Values:
+lambda <- t(l)%*%solve(I-A)
+lambda
+# Value embodied in the net product is equal to 
+# the total labor to produce the gross output
+(lambda %*% y) 
+(l %*% Q)
+
+# Value of real wage bundle (value of labor power)
+vrb <- lambda %*% b
+vrb
+
+# Rate of exploitation
+e <- (1-vrb)/1
+e
+```
+
+
