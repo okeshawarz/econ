@@ -65,7 +65,38 @@ vrb
 
 # Rate of exploitation
 e <- (1-vrb)/1
-e
+
+# --------- Price System: 1 --------- #
+# -- Rate of profit calculations
+# Maximum eigenvalue of A
+jj_A <- eigen(A)$values
+(lambda_mA <- max(jj_A))
+# Maximal rate of profit
+(R <- (1/lambda_mA)-1)
+# Augmented input matrix
+(M <- A + b%*%t(l))
+# Maximum eigenvalue of M
+jj_M <- eigen(M)$values
+(lambda_mM <- max(jj_M))
+# Uniform rate of profit
+(r_e <- (1/lambda_mM)-1)
+r_e
 ```
+```{r}
+# Relative Price Calculations
+M1 <- I - (1/lambda_mM) * M
+M1
+# Pre-multiply M1 with a price vector
+# Choose any two equations
+# Solve for relative prices
+# Here we solve in terms of p3
+A1 <- M1[1:2,1:2]
+A1
+b1 <- M1[3,1:2]
+b1
+(p12 <- solve(t(A1),b1))
+p12
+```
+
 
 
