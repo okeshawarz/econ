@@ -11,6 +11,37 @@ y3 = [3;4]
 @show dot(x1, y1)
 @show x1 * x2
 
+# Arrays
+## Arrays vs vectors: Vectors are just 1-dimensional matrices
+## Vectors with commas or semicolons are column vectors; spaces are 
+## row vectors:
+
+ [1 2 3 4]
+ [1; 2; 3; 4]
+
+ x = [1, 2, 3]
+ y = copy(x) 
+ y[1]  
+ x
+
+ y = similar(x)
+
+# Array indexing
+a = randn(2,2)
+a
+a[1,1]
+a[1, :] # first row
+a[:, 1] # first column
+
+# Views and Slices
+a = [1 2; 3 4]
+b = a[:, 2] # assign the second column of a to b
+@show b
+
+a[:, 2] = [4, 5] # modify second column of a
+@show a
+@show b
+
 # Tuples
 x = ("foo", "bar")
 y = ("foo", 2)
