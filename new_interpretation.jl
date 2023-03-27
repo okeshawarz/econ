@@ -19,10 +19,12 @@ w = 1
 
 v = 0.515
 
-y = [180 0 30]
+y = [180 
+     0 
+     30]
 
 # Compute Gross Output
-x = inv(I - A) * y'
+x = (I-A)\y
 
 # Maximum Eigenvalue of A
 λ_mA = eigmax(A)
@@ -33,22 +35,23 @@ R = (1/λ_mA) - 1
 # Define Univariate function of the rate of profit
 
 f(r2) = (1 + r2)w*l*inv((I - (1+r2)A))*(I - A)*x - (w*l*x/v)
+h(r2) = (1 + r2)w*l*((I-1+r2)\(I-A)*x) - (w*l*x/v)
 
 # Doesn't work, but it should. Alternate way:
-function g(r)
+function g(r2)
     D2 = (I-A)*x
     l2 = l
     A2 = A
     L2 = (l*x)/v
-    C2 = inv(I-(1+r)*A2)
-    E2 = C2 * D2
-    B2 = (1+r)*l2*E2
+    C2 = (I-(1+r2)*A2)
+    E2 = C2\D2
+    B2 = (1+r2)*l2*E2
     i2 = B2-L2
     return(i2)
 end
 
 using Roots
-r = find_zero(f, (0, R))
+r = find_zero(g, (0, R-0.1))
 
 #WARNING: Value for r given here different than in text. 
 #Python gives the same value-- maybe difference in root finding algorithm?
